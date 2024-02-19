@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEHTA CREDIT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form action="/submit" method="post">
+            <h1>MEHTA CREDIT </h1>
+
+            <label for="inputField1">ENTER PRODUCT DETAILS :</label><br>
+            <input type="text" id="inputField1"  name="inputField1" placeholder="ENTER PRODUCT DETAILS ...">
+
+            <label for="inputField2">ENTER PRODUCT AMOUNT :</label><br>
+            <input type="number" id="inputField2"  name="inputField2" placeholder="ENTER PRODUCT AMOUNT ...">
+
+            <br><br><br>
+            <p ID="output1"></p>
+            <p id="output2"></p>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        function showInput() {
+            var userPInput = document.getElementById('userPInput').value;
+            var userAInput = document.getElementById('userAInput').value;
+            document.getElementById('output1').innerText = "PRODUCT DETAILS : " + userPInput;
+            document.getElementById('output2').innerText = "PRODUCT AMOUNT : RS. " + userAInput;
+
+        }
+    </script>
+</body>
+
+</html>
