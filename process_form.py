@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request
+
+import bill
 import main
+from tkinter import messagebox
 
 app = Flask(__name__)
 
@@ -16,8 +19,8 @@ def submit_form():
 
     # Process the data (you can replace this with your own logic)
     main.data(input_field1_value, input_field2_value)
-
-    return "Form submitted successfully!"
+    bill.main()
+    return "DATA ENTERED INTO MEHTA CREDIT"
 
 
 if __name__ == '__main__':
