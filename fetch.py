@@ -1,57 +1,59 @@
 import mysql.connector
 
 
-def main():
-    # Replace these with your database connection details
+def main(sd, ed):
     db_config = {
         "host": "localhost",
         "user": "root",
         "password": "Sparsh@08",
         "database": "mehta",
     }
-    datem = []
-    detailsm = []
-    amountm = []
-    totalm = []
+
+    date_m = []
+    details_m = []
+    amount_m = []
+    total_m = []
 
     # Establish a connection to the database
     connection = mysql.connector.connect(**db_config)
 
-    # date fech
-    a = 'select Date from credit'
+    a = 'select Date from credit WHERE Date BETWEEN %s AND %s'
+    data = (sd, ed,)
     c = connection.cursor()
-    c.execute(a)
+    c.execute(a, data)
     myname = c.fetchall()
     for i in myname:
         d = i[0]
-        datem.append(d)
+        date_m.append(d)
 
     # date fech
-    a = 'select DETAILS from credit'
+    a = 'select DETAILS from credit WHERE Date BETWEEN %s AND %s'
+    data = (sd, ed,)
     c = connection.cursor()
-    c.execute(a)
+    c.execute(a, data)
     myname = c.fetchall()
     for i in myname:
         d = i[0]
-        detailsm.append(d)
+        details_m.append(d)
 
     # date fech
-    a = 'select AMOUNT from credit'
+    a = 'select AMOUNT from credit WHERE Date BETWEEN %s AND %s'
+    data = (sd, ed,)
     c = connection.cursor()
-    c.execute(a)
+    c.execute(a, data)
     myname = c.fetchall()
     for i in myname:
         d = i[0]
-        amountm.append(str(d))
+        amount_m.append(str(d))
 
     # date fech
-    a = 'select TOTAL from credit'
+    a = 'select TOTAL from credit WHERE Date BETWEEN %s AND %s'
+    data = (sd, ed,)
     c = connection.cursor()
-    c.execute(a)
+    c.execute(a, data)
     myname = c.fetchall()
     for i in myname:
         d = i[0]
-        totalm.append(str(d))
+        total_m.append(str(d))
 
-    return datem, detailsm, amountm, totalm
-
+    return date_m, details_m, amount_m, total_m

@@ -2,12 +2,17 @@ from datetime import datetime
 from reportlab.pdfgen import canvas
 import openpdf
 import fetch
+import calendar
+
+
+def dateSet(year, month):
+    return calendar.monthrange(year, month)[1]
 
 
 def main():
     local = datetime.now()
     t = local.strftime(" %d-%m-%Y %H %M %S")
-    td = local.strftime("%d - %m - %Y")
+    td = local.strftime("%d-%m-%Y")
     name = "MEHTA GENERAL STORE"
     file_path = "E:/Invoice/" + name + t + ".pdf"
     loc = "MEHTA GENERAL STORE"
@@ -36,30 +41,44 @@ def main():
 
     pdf.drawString(100, 605, '-' * 99)
 
-    datesm, detailsm, amountm, totalm = fetch.main()
+    # today = datetime.date.today()
+    # s = today.strftime('%d-%m-%Y')
+    sp = td.split("-")
+    int_year = int(sp[2])
+    int_month = int(sp[1])
+    numberOfDate = dateSet(int_year, int_month)
+    if int_month < 10:
+        start_date = "01-0" + str(int_month) + "-" + str(int_year)
+        end_date = str(numberOfDate) + "-0" + str(int_month) + "-" + str(int_year)
+        dates_m, details_m, amount_m, total_m = fetch.main(start_date, end_date)
+    else:
+        start_date = "01-" + str(int_month) + "-" + str(int_year)
+        print("Start Date - ", start_date)
+        end_date = str(numberOfDate) + "-" + str(int_month) + "-" + str(int_year)
+        dates_m, details_m, amount_m, total_m = fetch.main(start_date, end_date)
 
     y = 590
-    for i in datesm:
+    for i in dates_m:
         pdf.drawString(100, y, i)
         y = y - 20
     y = 590
-    for d in detailsm:
+    for d in details_m:
         pdf.drawString(200, y, d)
         y = y - 20
     y = 590
-    for a in amountm:
+    for a in amount_m:
         pdf.drawString(410, y, a)
         y = y - 20
     y = 590
-    for t in totalm:
+    for t in total_m:
         pdf.drawString(470, y, t)
         y = y - 20
-    length = len(totalm)
+    length = len(total_m)
 
-    pdf.drawString(100, y+5, '-' * 99)
-    pdf.drawString(330, y - 13, "TOTAL OUTSTANDING - ".format(totalm[length - 1]))
-    pdf.drawString(470, y-13, "{}".format(totalm[length-1]))
-    pdf.drawString(100, y-30, '-' * 99)
+    pdf.drawString(100, y + 5, '-' * 99)
+    pdf.drawString(330, y - 13, "TOTAL OUTSTANDING - ".format(total_m[length - 1]))
+    pdf.drawString(470, y - 13, "{}".format(total_m[length - 1]))
+    pdf.drawString(100, y - 30, '-' * 99)
 
     # Save the PDF
     pdf.save()
